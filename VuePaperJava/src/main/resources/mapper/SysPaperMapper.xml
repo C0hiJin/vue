@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.vuespringjava.mapper.SysPaperMapper">
+    <insert id="StudentCourseSelection">
+        INSERT INTO sys_user_studen(user_id,paper_id) VALUES (#{userID},#{paperID})
+    </insert>
+    <insert id="addPaper">
+        INSERT INTO sys_paper(`name`,teacher_id,remark) VALUES (#{name},#{TeacherID},#{remark})
+    </insert>
+
+    <select id="getTeacherPaper" resultType="com.example.vuespringjava.entity.SysPaper">
+
+        SELECT *
+        FROM sys_paper
+        WHERE teacher_id =#{TeacherID}
+
+    </select>
+    <select id="getALLStudent" resultType="com.example.vuespringjava.entity.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE id IN (SELECT user_id FROM sys_user_studen WHERE paper_id =#{paperID}
+        )
+    </select>
+    <select id="getTeacher" resultType="com.example.vuespringjava.entity.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE id IN (SELECT user_id
+                     FROM sys_user_teacher
+                     WHERE teacher_id IN (SELECT teacher_id FROM sys_paper WHERE id =#{paperID})
+        )
+    </select>
+    <select id="getPaper" resultType="com.example.vuespringjava.entity.SysPaper">
+        SELECT *FROM sys_paper WHERE id IN(SELECT paper_id FROM sys_user_studen WHERE user_id=#{userID})
+
+    </select>
+    <select id="getAll" resultType="com.example.vuespringjava.entity.SysPaper">
+        SELECT * FROM sys_paper
+    </select>
+
+</mapper>

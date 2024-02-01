@@ -1,0 +1,36 @@
+server:
+  port: 8081
+# DataSource Config
+spring:
+  servlet:
+    multipart:
+      #上传的附件最大值
+      max-file-size: 30MB
+      max-request-size: 100MB
+
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/paper?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123321
+
+  security:
+#    user:
+#      name: user
+#      password: 123321
+
+  redis:
+    host: 192.168.174.100
+    port: 6379
+    password: tLEnz3IQyHSHLr88
+    timeout: 5000
+    database: 0
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+markerhub:
+  jwt:
+    header: Authorization
+    expire: 604800 #7天以秒为单位
+    secret: ji8n3439n439n43ld9ne9343fdfer49h #随机32位字符串即可
